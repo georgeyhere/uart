@@ -2,9 +2,9 @@
 //
 //
 module uart_top 
-	#(parameter CLK_FREQ  = 125_000_000,
-	  parameter BAUD_RATE = 115_200)
-	(
+    #(parameter CLK_FREQ  = 125_000_000,
+      parameter BAUD_RATE = 115_200)
+    (
     input  wire       i_clk,
     input  wire       i_rstn,
     
@@ -20,13 +20,13 @@ module uart_top
     // UART interface
     output wire       o_uart_tx,
     input  wire       i_uart_rx
-	);
+    );
 
-	localparam CLKS_PER_BAUD = CLK_FREQ/BAUD_RATE;
+    localparam CLKS_PER_BAUD = CLK_FREQ/BAUD_RATE;
 
-	uart_tx 
-	#(.CLKS_PER_BAUD(CLKS_PER_BAUD))
-	tx_i (
+    uart_tx 
+    #(.CLKS_PER_BAUD(CLKS_PER_BAUD))
+    tx_i (
     .i_clk       (i_clk),
     .i_rstn      (i_rstn),
      
@@ -35,18 +35,18 @@ module uart_top
   
     .o_uart_tx   (o_uart_tx),
     .o_busy      (o_busy)
-	);
+    );
 
-	uart_rx 
-	#(.CLKS_PER_BAUD(CLKS_PER_BAUD))
-	rx_i (
+    uart_rx 
+    #(.CLKS_PER_BAUD(CLKS_PER_BAUD))
+    rx_i (
     .i_clk       (i_clk),
     .i_rstn      (i_rstn),
  
     .i_rx        (i_uart_rx),
     .o_rx_data   (o_data),
     .o_rx_dvalid (o_valid)
-	);
+    );
 
 
 endmodule
